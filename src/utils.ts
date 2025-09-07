@@ -20,23 +20,24 @@ export const getFirstDigit = (gender: Gender, birthdate: string) => {
   const birthYear = parseISO(birthdate).getFullYear()
 
   const centuriesSince1800 = Math.floor((birthYear - 1800) / 100)
+  const amountToAddToBaseDigit = (centuriesSince1800 * 2)
 
   if (gender === 'M') {
-    return (1 + (centuriesSince1800 * 2)).toString()
+    return (1 + amountToAddToBaseDigit).toString()
   }
 
 
-  return (2 + (centuriesSince1800 * 2)).toString()
+  return (2 + amountToAddToBaseDigit).toString()
 }
 
 
 export const getSequenceNumber = (sequenceNumber: number = Math.floor(Math.random() * 1000)) => {
   if (sequenceNumber < 0) {
-    throw new Error('Random part less than zero')
+    throw new Error('Sequence number less than zero')
   }
 
   if (sequenceNumber >= 1000) {
-    throw new Error('Random part greater than zero')
+    throw new Error('Sequence greater than zero')
   }
 
   let zeroPrefixPaddingSize: number
@@ -53,8 +54,7 @@ export const getSequenceNumber = (sequenceNumber: number = Math.floor(Math.rando
 
 
 
-export const getPersonalCode = (gender: Gender, birthdate: Iso8601Date, desiredSequenceNumber?: number) => {
-
+export const getPersonalCode = (gender: Gender, birthdate: string, desiredSequenceNumber?: number) => {
   const firstDigit = getFirstDigit(gender, birthdate)
   const date = format(parseISO(birthdate), 'yyMMdd')
 

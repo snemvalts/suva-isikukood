@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import './App.css'
-import { formatISO, isValid } from 'date-fns'
+import { formatISO } from 'date-fns'
 import { getPersonalCode, isValidBirthYear, type Gender } from './utils'
 
 function App() {
