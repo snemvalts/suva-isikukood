@@ -1,22 +1,23 @@
 import { format, parseISO } from 'date-fns'
 
 export type Gender = 'M' | 'F'
-export type Iso8601Date = `${number}${number}${number}${number}-${number}${number}-${number}${number}`
 
 
 
-
-
-export const getFirstDigit = (gender: Gender, birthdate: Iso8601Date) => {
+export const isValidBirthYear = (birthdate: string) => {
   const birthYear = parseISO(birthdate).getFullYear()
 
-  if (birthYear < 1800) {
-    throw new Error('Too early birth year')
+  return birthYear >= 1800 && birthYear < 2200
+}
+
+
+
+export const getFirstDigit = (gender: Gender, birthdate: string) => {
+  if (!isValidBirthYear(birthdate)) {
+    throw new Error('Invalid birth year')
   }
 
-  if (birthYear >= 2200) {
-    throw new Error('Too late birth year')
-  }
+  const birthYear = parseISO(birthdate).getFullYear()
 
   const centuriesSince1800 = Math.floor((birthYear - 1800) / 100)
 
